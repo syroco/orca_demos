@@ -58,11 +58,8 @@ int main(int argc, char const *argv[])
 
     GazeboServer gz_server(argc,argv);
     // auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url));
-    auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url,Eigen::Vector3d(0,0,0.901)));
-
-    // gz_model.setModelConfiguration( { "joint_0", "joint_3","joint_5"} , {1.0,-M_PI/2.,M_PI/2.});
-
-    gz_model.setModelConfiguration( { "left_shoulder_abduction", "right_shoulder_abduction" } , { M_PI/2., -M_PI/2. } );
+    auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url,Eigen::Vector3d(0,0,1.0)));
+    gz_model.setModelConfiguration( { "right_shoulder_abduction", "left_shoulder_abduction"} , {-M_PI/2.,M_PI/2.});
 
     orca::utils::Logger::parseArgv(argc, argv);
 
@@ -71,10 +68,39 @@ int main(int argc, char const *argv[])
     robot_model->setBaseFrame("root");
     robot_model->setGravity(Eigen::Vector3d(0,0,-9.81));
 
+
+    orca::optim::Controller controller(
+        "controller"
+        ,robot_model
+        ,orca::optim::ResolutionStrategy::OneLevelWeighted
+        ,QPSolverImplType::qpOASES
+    );
+
+
     const int ndof = robot_model->getNrOfDegreesOfFreedom();
 
-    gz_model.setBrakes(false);
+    // Joint postural task
+    auto joint_pos_task = controller.addTask<JointAccelerationTask>("JointPosTask");
+    joint_pos_task->pid()->setProportionalGain(Eigen::VectorXd::Constant(ndof,100));
+    joint_pos_task->pid()->setDerivativeGain(Eigen::VectorXd::Constant(ndof,1));
+    joint_pos_task->pid()->setWindupLimit(Eigen::VectorXd::Constant(ndof,10));
+    joint_pos_task->pid()->setDerivativeGain(Eigen::VectorXd::Constant(ndof,10));
+    joint_pos_task->setWeight(1.);
 
+    auto jnt_trq_cstr = controller.addConstraint<JointTorqueLimitConstraint>("JointTorqueLimit");
+    Eigen::VectorXd jntTrqMax(ndof);
+    jntTrqMax.setConstant(200.0);
+    jnt_trq_cstr->setLimits(-jntTrqMax,jntTrqMax);
+
+    auto jnt_pos_cstr = controller.addConstraint<JointPositionLimitConstraint>("JointPositionLimit");
+
+    auto jnt_vel_cstr = controller.addConstraint<JointVelocityLimitConstraint>("JointVelocityLimit");
+    jnt_vel_cstr->setLimits(Eigen::VectorXd::Constant(ndof,-2.0),Eigen::VectorXd::Constant(ndof,2.0));
+
+
+    // Lets decide that the robot is gravity compensated
+    // So we need to remove G(q) from the solution
+    controller.removeGravityTorquesFromSolution(true);
     gz_model.executeAfterWorldUpdate([&](uint32_t n_iter,double current_time,double dt)
     {
         robot_model->setRobotState(gz_model.getWorldToBaseTransform().matrix()
@@ -83,26 +109,31 @@ int main(int argc, char const *argv[])
                             ,gz_model.getJointVelocities()
                             ,gz_model.getGravity()
                         );
-
         // Compensate the gravity at least
-        Eigen::VectorXd trq = Eigen::VectorXd::Zero(ndof);
-        // for (int i=0; i<ndof; i++)
-        // {
-        //   std::cout << robot_model->getJointName(i) << " " << i << std::endl;
-        //   // if (robot_model->getJointName(i) == "right_knee_flexion")
-        //   //   trq[i] = 100.;
-        //
-        //   }
-        //   trq[1] = -100.;
+        gz_model.setJointGravityTorques(robot_model->getJointGravityTorques());
+        // All tasks need the robot to be initialized during the activation phase
+        if(n_iter == 1)
+            controller.activateTasksAndConstraints();
 
-        gz_model.setJointTorqueCommand(trq);
-        // gz_model.setJointGravityTorques(robot_model->getJointGravityTorques());
-        // gz_model.setJointTorqueCommand(Eigen::VectorXd::Zero(ndof));
-        // gz_model.setJointTorqueCommand( controller.getJointTorqueCommand() );
+        controller.update(current_time, dt);
 
-
+        if(controller.solutionFound())
+        {
+            gz_model.setJointTorqueCommand( controller.getJointTorqueCommand() );
+        }
+        else
+        {
+            gz_model.setBrakes(true);
+        }
     });
 
+    std::cout << "Simulation running... (GUI with \'gzclient\')" << "\n";
+
+    // If you want to pause the simulation before starting it uncomment these lines
+    // Note that to unlock it either open 'gzclient' and click on the play button
+    // Or open a terminal and type 'gz world -p false'
+    //
+    std::cout << "Gazebo is paused, open gzclient to unpause it or type 'gz world -p false' in a new terminal" << '\n';
     gazebo::event::Events::pause.Signal(true);
 
     gz_server.run();
