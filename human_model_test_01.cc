@@ -58,7 +58,8 @@ int main(int argc, char const *argv[])
 
     GazeboServer gz_server(argc,argv);
     auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url,Eigen::Vector3d(0,0,0.901)));
-    // gz_model.setModelConfiguration( { "joint_0", "joint_3","joint_5"} , {1.0,-M_PI/2.,M_PI/2.});
+
+    gz_model.setModelConfiguration( { "left_shoulder_abduction", "right_shoulder_abduction" } , { M_PI/2., -M_PI/2. } );
     
     orca::utils::Logger::parseArgv(argc, argv);
 
