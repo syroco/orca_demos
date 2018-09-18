@@ -928,161 +928,161 @@
     </plugin> -->
   </gazebo>
   <gazebo reference="root">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="pelvis">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_L5_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_L5_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="lumbar_spine">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_T12_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_T12_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="thoracic_spine">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_C7_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_C7_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="neck">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_C1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="head">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_CSJ_right_clavicular">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_clavicular">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_shoulder_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_right_shoulder_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_arm">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_elbow">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_forearm">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_wrist">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_hand">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_CSJ_left_clavicular">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_clavicular">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_shoulder_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_left_shoulder_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_arm">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_elbow">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_forearm">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_wrist">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_hand">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_hip_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_right_hip_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_thigh">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_knee">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_shank">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_ankle">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_foot">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <mu1>0.7</mu1>
     <mu2>0.7</mu2>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_hip_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_left_hip_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_thigh">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     &gt;
 		
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_knee">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_shank">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_ankle">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_foot">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <mu1>0.7</mu1>
     <mu2>0.7</mu2>
     <material>Gazebo/Blue</material>
