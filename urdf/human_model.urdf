@@ -923,9 +923,9 @@
   <!-- Gazebo plugin for ROS Control -->
   <!-- Note: if adding a Namespace here (other than "/"), the controller_manager should be in the same Namespace, as well as the spawner -->
   <gazebo>
-    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+    <!-- <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
       <robotNamespace>/dhm</robotNamespace>
-    </plugin>
+    </plugin> -->
   </gazebo>
   <gazebo reference="root">
     <turnGravityOff> 1 </turnGravityOff>
