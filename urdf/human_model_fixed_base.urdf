@@ -19,7 +19,7 @@
       <child link="root"/>
       <origin xyz="0 0 1.2"/>
   </joint>
-  
+
   <link name="root">
     <inertial>
       <mass value="0.001"/>
@@ -338,7 +338,7 @@
       <mass value="1.74495037103"/>
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1615 0"/>
       &gt;
-			
+
       <inertia ixx="0.0162792731508" ixy="0" ixz="0" iyy="0.0162792731508" iyz="0" izz="0.00221705842508"/>
     </inertial>
   </link>
@@ -714,7 +714,7 @@
     <child link="body_right_elbow"/>
     <axis xyz="0 0 1"/>
     <origin xyz="0 -0.323 0"/>
-    <limit effort="75.0" lower="0.0" upper="2.47836753783" velocity="1.0"/>
+    <limit effort="75.0" lower="-0.087" upper="2.47836753783" velocity="1.0"/>
     <dynamics damping="0.01" friction="0.0"/>
   </joint>
   <joint name="right_elbow_rotation" type="revolute">
@@ -787,7 +787,7 @@
     <child link="body_left_elbow"/>
     <axis xyz="0 0 1"/>
     <origin xyz="0 -0.323 0"/>
-    <limit effort="75.0" lower="0.0" upper="2.47836753783" velocity="1.0"/>
+    <limit effort="75.0" lower="-0.087" upper="2.47836753783" velocity="1.0"/>
     <dynamics damping="0.01" friction="0.0"/>
   </joint>
   <joint name="left_elbow_rotation" type="revolute">
@@ -1076,7 +1076,7 @@
   <gazebo reference="left_thigh">
     <turnGravityOff> 1 </turnGravityOff>
     &gt;
-		
+
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_knee">

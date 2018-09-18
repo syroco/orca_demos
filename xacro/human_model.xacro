@@ -57,7 +57,7 @@
 	<xacro:property name="slimAlpha" value="0.9" />
 	<xacro:property name="normAlpha" value="1.0" />
 	<xacro:property name="fatAlpha" value="1.3" />
-	
+
 	<xacro:if value="${isBMIgreaterThanAverage == 1}">
 		<xacro:property name="alpha" value="${1 + (fatAlpha  - normAlpha) * (BMI - normBMI) / (fatBMI - normBMI)}" />-->
 	</xacro:if>
@@ -71,7 +71,7 @@
 
 	<xacro:property name="hip_thickness" value="${alpha*0.08}" />
 
-	<xacro:property name="pelvis_length" value="${S5_L5 + hip_thickness}" /> 
+	<xacro:property name="pelvis_length" value="${S5_L5 + hip_thickness}" />
 	<xacro:property name="pelvis_width" value="${hipWidth + 0.7*hip_thickness + alpha*0.11}" />
 	<xacro:property name="pelvis_depth" value="${2*alpha*0.11}" />
 
@@ -144,15 +144,15 @@
 	</xacro:macro>
 	<xacro:macro name="cylinder_inertia" params="m L r">
 		<inertia ixx="${1/12 * m * (3*r*r + L*L)}" ixy="0" ixz="0" iyy="${1/12 * m * (3*r*r + L*L)}" iyz="0" izz="${1/2 * m * r*r}" />
-	</xacro:macro>			
+	</xacro:macro>
 	<xacro:macro name="sphere_inertia" params="m r">
 		<inertia ixx="${2/5 * m * r*r}" ixy="0" ixz="0" iyy="${2/5 * m * r*r}" iyz="0" izz="${2/5 * m * r*r}" />
-	</xacro:macro>	
+	</xacro:macro>
 
-	<!-- URDF only accepts 1DoF joint. 
+	<!-- URDF only accepts 1DoF joint.
 	A joint with several DoFs can be implemented as a succession of 1DoF-joint linked by "virtual" bodies.
-	These "virtual" bodies must have a physical mass for the simulation to run. 
-	They are represented as spheres with a virtual_mass and vitualRadius defined hereafter --> 
+	These "virtual" bodies must have a physical mass for the simulation to run.
+	They are represented as spheres with a virtual_mass and vitualRadius defined hereafter -->
 	<xacro:property name="virtual_mass" value="0.001" />
 	<xacro:property name="virtual_radius" value="0.01" />
 	<xacro:macro name="virtual_body" params="name">
@@ -207,7 +207,7 @@
 		</visual>
 		<collision>
 			<geometry>
-				<box size="${lumbarspine_depth}  ${lumbarspine_length} ${collision_width_factor*lumbarspine_width}"/>	
+				<box size="${lumbarspine_depth}  ${lumbarspine_length} ${collision_width_factor*lumbarspine_width}"/>
 			</geometry>
 			<origin rpy="0 0 0" xyz="0 ${lumbarspine_length/2} 0"/>
 		</collision>
@@ -248,14 +248,14 @@
 	<link name="neck">
 		<visual>
 			<geometry>
-				<cylinder length="${neck_length}" radius="${neck_radius}" />    
+				<cylinder length="${neck_length}" radius="${neck_radius}" />
 			</geometry>
 			<origin rpy="${-PI/2} 0 0" xyz="0 ${neck_length/2} 0"/>
 			<material name="blue" />
 		</visual>
 		<collision>
 			<geometry>
-				<cylinder length="${neck_length}" radius="${neck_radius}" />  
+				<cylinder length="${neck_length}" radius="${neck_radius}" />
 			</geometry>
 			<origin rpy="${-PI/2} 0 0" xyz="0 ${neck_length/2} 0"/>
 		</collision>
@@ -271,14 +271,14 @@
 	<link name="head">
 		<visual>
 			<geometry>
-				<cylinder length="${head_length}" radius="${head_radius}"/>     
+				<cylinder length="${head_length}" radius="${head_radius}"/>
 			</geometry>
 			<origin rpy="${-PI/2} 0 0" xyz="0 ${C1_headtop - headbase_headtop/2} 0"/>
 			<material name="blue" />
 		</visual>
 		<collision>
 			<geometry>
-				<cylinder length="${head_length}" radius="${head_radius}"/>    
+				<cylinder length="${head_length}" radius="${head_radius}"/>
 			</geometry>
 			<origin rpy="${-PI/2} 0 0" xyz="0 ${C1_headtop - headbase_headtop/2} 0"/>
 		</collision>
@@ -294,7 +294,7 @@
 	<link name="right_clavicular">
 		<visual>
 			<geometry>
-				<cylinder length="${clavicular_length}" radius="${clavicular_radius}"/> 
+				<cylinder length="${clavicular_length}" radius="${clavicular_radius}"/>
 			</geometry>
 			<origin  rpy="0 0 0" xyz="0 0 ${clavicular_length/2}"/>
 			<material name="blue" />
@@ -312,14 +312,14 @@
 	<link name="right_arm">
 		<visual>
 			<geometry>
-				<cylinder length="${arm_length}" radius="${arm_radius}"/>    
+				<cylinder length="${arm_length}" radius="${arm_radius}"/>
 			</geometry>
 			<origin rpy="${PI/2} 0 0" xyz="0 ${-arm_length/2} 0"/>
 			<material name="blue" />
 		</visual>
 		<collision>
 			<geometry>
-				<cylinder length="${arm_length}" radius="${arm_radius}"/>      
+				<cylinder length="${arm_length}" radius="${arm_radius}"/>
 			</geometry>
 			<origin rpy="${PI/2} 0 0" xyz="0 ${-arm_length/2} 0"/>
 		</collision>
@@ -381,7 +381,7 @@
 	<link name="left_clavicular">
 		<visual>
 			<geometry>
-				<cylinder length="${clavicular_length}" radius="${clavicular_radius}"/> 
+				<cylinder length="${clavicular_length}" radius="${clavicular_radius}"/>
 			</geometry>
 			<origin  rpy="0 0 0" xyz="0 0 ${-clavicular_length/2}"/>
 			<material name="blue" />
@@ -400,14 +400,14 @@
 	<link name="left_arm">
 		<visual>
 			<geometry>
-				<cylinder length="${arm_length}" radius="${arm_radius}"/>    
+				<cylinder length="${arm_length}" radius="${arm_radius}"/>
 			</geometry>
 			<origin rpy="${PI/2} 0 0" xyz="0 ${-arm_length/2} 0"/>
 			<material name="blue" />
 		</visual>
 		<collision>
 			<geometry>
-				<cylinder length="${arm_length}" radius="${arm_radius}"/>      
+				<cylinder length="${arm_length}" radius="${arm_radius}"/>
 			</geometry>
 			<origin rpy="${PI/2} 0 0" xyz="0 ${-arm_length/2} 0"/>
 		</collision>
@@ -470,14 +470,14 @@
 	<link name="right_thigh">
 		<visual>
 			<geometry>
-				<cylinder length="${thigh_length}" radius="${thigh_radius}"/>   
+				<cylinder length="${thigh_length}" radius="${thigh_radius}"/>
 			</geometry>
 			<origin rpy="${PI/2} 0 0" xyz="0 ${-thigh_length/2} 0"/>
 			<material name="blue" />
 		</visual>
 		<collision>
 			<geometry>
-				<cylinder length="${thigh_length}" radius="${thigh_radius}"/>    
+				<cylinder length="${thigh_length}" radius="${thigh_radius}"/>
 			</geometry>
 			<origin rpy="${PI/2} 0 0" xyz="0 ${-thigh_length/2} 0"/>
 		</collision>
@@ -540,14 +540,14 @@
 	<link name="left_thigh">
 		<visual>
 			<geometry>
-				<cylinder length="${thigh_length}" radius="${thigh_radius}" />   
+				<cylinder length="${thigh_length}" radius="${thigh_radius}" />
 			</geometry>
 			<origin rpy="${PI/2} 0 0" xyz="0 ${-thigh_length/2} 0"/>
 			<material name="blue" />
 		</visual>
 		<collision>
 			<geometry>
-				<cylinder length="${thigh_length}" radius="${thigh_radius}" />  
+				<cylinder length="${thigh_length}" radius="${thigh_radius}" />
 			</geometry>
 			<origin rpy="${PI/2} 0 0" xyz="0 ${-thigh_length/2} 0"/>
 		</collision>
@@ -605,7 +605,7 @@
 	</link>
 
 	<!-- Define joints -->
-	<!-- Joint for correct pelvis orientation --> 
+	<!-- Joint for correct pelvis orientation -->
 	<joint name="root_ISB_orientation" type="fixed">
 		<parent link="root" />
 		<child link="pelvis" />
@@ -763,7 +763,7 @@
 		<child link="body_right_elbow"/>
 		<axis xyz="0 0 1"/>
 		<origin xyz="0 ${-shoulder_elbow} 0"/>
-		<limit effort="${75*forceCapacity}" lower="${-0*PI/180}" upper="${142*PI/180}" velocity="${maxVelJoint}"/>
+		<limit effort="${75*forceCapacity}" lower="${-5*PI/180}" upper="${142*PI/180}" velocity="${maxVelJoint}"/>
 		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
 	</joint>
 
@@ -845,7 +845,7 @@
 		<child link="body_left_elbow"/>
 		<axis xyz="0 0 1"/>
 		<origin xyz="0 ${-shoulder_elbow} 0"/>
-		<limit effort="${75*forceCapacity}" lower="${-0*PI/180}" upper="${142*PI/180}" velocity="${maxVelJoint}"/>
+		<limit effort="${75*forceCapacity}" lower="${-5*PI/180}" upper="${142*PI/180}" velocity="${maxVelJoint}"/>
 		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
 	</joint>
 
@@ -963,7 +963,7 @@
 		<parent link="body_left_hip_2"/>
 		<child link="left_thigh"/>
 		<axis xyz="0 0 1"/>
-		<origin xyz="0 0 0"/>		
+		<origin xyz="0 0 0"/>
 		<limit effort="${186*forceCapacity}" lower="${-15*PI/180}" upper="${113*PI/180}" velocity="${maxVelJoint}"/>
 		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
 	</joint>
