@@ -22,9 +22,9 @@
 
   <link name="root">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="pelvis">
@@ -42,23 +42,23 @@
       <origin rpy="0 0 0" xyz="0 0.00642243367935 0"/>
     </collision>
     <inertial>
-      <mass value="7.15341845835"/>
+      <mass value="6.89158572223"/>
       <origin rpy="0 0 0" xyz="0 0.00642243367935 0"/>
-      <inertia ixx="0.0893871707018" ixy="0" ixz="0" iyy="0.100633504616" iyz="0" izz="0.047406876412"/>
+      <inertia ixx="0.0861153800725" ixy="0" ixz="0" iyy="0.096950070463" iyz="0" izz="0.0456716679611"/>
     </inertial>
   </link>
   <link name="body_L5_1">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="body_L5_2">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="lumbar_spine">
@@ -76,23 +76,23 @@
       <origin rpy="0 0 0" xyz="0 0.08925 0"/>
     </collision>
     <inertial>
-      <mass value="10.4080382663"/>
+      <mass value="10.0270784284"/>
       <origin rpy="0 0 0" xyz="0 0.08925 0"/>
-      <inertia ixx="0.0977685847445" ixy="0" ixz="0" iyy="0.109011860436" iyz="0" izz="0.0665138619002"/>
+      <inertia ixx="0.0941900137159" ixy="0" ixz="0" iyy="0.105021757822" iyz="0" izz="0.0640792907154"/>
     </inertial>
   </link>
   <link name="body_T12_1">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="body_T12_2">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="thoracic_spine">
@@ -110,23 +110,23 @@
       <origin rpy="0 0 0" xyz="0 0.1105 0"/>
     </collision>
     <inertial>
-      <mass value="9.32987685629"/>
+      <mass value="8.98838038167"/>
       <origin rpy="0 0 0" xyz="0 0.1105 0"/>
-      <inertia ixx="0.133607535801" ixy="0" ixz="0" iyy="0.127245193543" iyz="0" izz="0.0695844103317"/>
+      <inertia ixx="0.128717170884" ixy="0" ixz="0" iyy="0.122587706025" iyz="0" izz="0.0670374495108"/>
     </inertial>
   </link>
   <link name="body_C7_1">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="body_C7_2">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="neck">
@@ -144,16 +144,16 @@
       <origin rpy="-1.57079632679 0 0" xyz="0 0.04675 0"/>
     </collision>
     <inertial>
-      <mass value="0.482784902231"/>
+      <mass value="0.465113785597"/>
       <origin rpy="-1.57079632679 0 0" xyz="0 0.04675 0"/>
-      <inertia ixx="0.000600148128613" ixy="0" ixz="0" iyy="0.000600148128613" iyz="0" izz="0.000496858538638"/>
+      <inertia ixx="0.0005781812288" ixy="0" ixz="0" iyy="0.0005781812288" iyz="0" izz="0.000478672292245"/>
     </inertial>
   </link>
   <link name="body_C1">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="head">
@@ -171,16 +171,16 @@
       <origin rpy="-1.57079632679 0 0" xyz="0 0.095625 0"/>
     </collision>
     <inertial>
-      <mass value="4.34506412008"/>
+      <mass value="4.18602407037"/>
       <origin rpy="-1.57079632679 0 0" xyz="0 0.095625 0"/>
-      <inertia ixx="0.0306468461355" ixy="0" ixz="0" iyy="0.0306468461355" iyz="0" izz="0.0217253206004"/>
+      <inertia ixx="0.0295250960766" ixy="0" ixz="0" iyy="0.0295250960766" iyz="0" izz="0.0209301203519"/>
     </inertial>
   </link>
   <link name="body_CSJ_right_clavicular">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="right_clavicular">
@@ -192,23 +192,23 @@
       <material name="blue"/>
     </visual>
     <inertial>
-      <mass value="0.518326492016"/>
+      <mass value="0.499354465648"/>
       <origin rpy="0 0 0" xyz="0 0 0.0758625"/>
-      <inertia ixx="0.00146850904182" ixy="0" ixz="0" iyy="0.00146850904182" iyz="0" izz="0.000948331021107"/>
+      <inertia ixx="0.00141475799361" ixy="0" ixz="0" iyy="0.00141475799361" iyz="0" izz="0.000913619769772"/>
     </inertial>
   </link>
   <link name="body_right_shoulder_1">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="body_right_shoulder_2">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="right_arm">
@@ -226,16 +226,16 @@
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1615 0"/>
     </collision>
     <inertial>
-      <mass value="1.74495037103"/>
+      <mass value="1.68108088923"/>
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1615 0"/>
-      <inertia ixx="0.0162792731508" ixy="0" ixz="0" iyy="0.0162792731508" iyz="0" izz="0.00221705842508"/>
+      <inertia ixx="0.0156834116538" ixy="0" ixz="0" iyy="0.0156834116538" iyz="0" izz="0.00213590862559"/>
     </inertial>
   </link>
   <link name="body_right_elbow">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="right_forearm">
@@ -253,16 +253,16 @@
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1275 0"/>
     </collision>
     <inertial>
-      <mass value="1.06160792958"/>
+      <mass value="1.02275046437"/>
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1275 0"/>
-      <inertia ixx="0.00618421455788" ixy="0" ixz="0" iyy="0.00618421455788" iyz="0" izz="0.000863253178908"/>
+      <inertia ixx="0.00595785707189" ixy="0" ixz="0" iyy="0.00595785707189" iyz="0" izz="0.000831655986165"/>
     </inertial>
   </link>
   <link name="body_right_wrist">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="right_hand">
@@ -280,16 +280,16 @@
       <origin rpy="0 0 0" xyz="0 -0.085 0"/>
     </collision>
     <inertial>
-      <mass value="0.41408646156"/>
+      <mass value="0.398929877075"/>
       <origin rpy="0 0 0" xyz="0 -0.085 0"/>
-      <inertia ixx="0.00122173623897" ixy="0" ixz="0" iyy="0.000256045230969" iyz="0" izz="0.00102882544851"/>
+      <inertia ixx="0.0011770176832" ixy="0" ixz="0" iyy="0.000246673344816" iyz="0" izz="0.00099116790286"/>
     </inertial>
   </link>
   <link name="body_CSJ_left_clavicular">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="left_clavicular">
@@ -301,23 +301,23 @@
       <material name="blue"/>
     </visual>
     <inertial>
-      <mass value="0.518326492016"/>
+      <mass value="0.499354465648"/>
       <origin rpy="0 0 0" xyz="0 0 -0.0758625"/>
-      <inertia ixx="0.00146850904182" ixy="0" ixz="0" iyy="0.00146850904182" iyz="0" izz="0.000948331021107"/>
+      <inertia ixx="0.00141475799361" ixy="0" ixz="0" iyy="0.00141475799361" iyz="0" izz="0.000913619769772"/>
     </inertial>
   </link>
   <link name="body_left_shoulder_1">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="body_left_shoulder_2">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="left_arm">
@@ -335,18 +335,18 @@
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1615 0"/>
     </collision>
     <inertial>
-      <mass value="1.74495037103"/>
+      <mass value="1.68108088923"/>
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1615 0"/>
       &gt;
 
-      <inertia ixx="0.0162792731508" ixy="0" ixz="0" iyy="0.0162792731508" iyz="0" izz="0.00221705842508"/>
+      <inertia ixx="0.0156834116538" ixy="0" ixz="0" iyy="0.0156834116538" iyz="0" izz="0.00213590862559"/>
     </inertial>
   </link>
   <link name="body_left_elbow">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="left_forearm">
@@ -364,16 +364,16 @@
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1275 0"/>
     </collision>
     <inertial>
-      <mass value="1.06160792958"/>
+      <mass value="1.02275046437"/>
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1275 0"/>
-      <inertia ixx="0.00618421455788" ixy="0" ixz="0" iyy="0.00618421455788" iyz="0" izz="0.000863253178908"/>
+      <inertia ixx="0.00595785707189" ixy="0" ixz="0" iyy="0.00595785707189" iyz="0" izz="0.000831655986165"/>
     </inertial>
   </link>
   <link name="body_left_wrist">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="left_hand">
@@ -391,23 +391,23 @@
       <origin rpy="0 0 0" xyz="0 -0.085 0"/>
     </collision>
     <inertial>
-      <mass value="0.41408646156"/>
+      <mass value="0.398929877075"/>
       <origin rpy="0 0 0" xyz="0 -0.085 0"/>
-      <inertia ixx="0.00122173623897" ixy="0" ixz="0" iyy="0.000256045230969" iyz="0" izz="0.00102882544851"/>
+      <inertia ixx="0.0011770176832" ixy="0" ixz="0" iyy="0.000246673344816" iyz="0" izz="0.00099116790286"/>
     </inertial>
   </link>
   <link name="body_right_hip_1">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="body_right_hip_2">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="right_thigh">
@@ -425,16 +425,16 @@
       <origin rpy="1.57079632679 0 0" xyz="0 -0.221 0"/>
     </collision>
     <inertial>
-      <mass value="9.16927117713"/>
+      <mass value="8.83365326597"/>
       <origin rpy="1.57079632679 0 0" xyz="0 -0.221 0"/>
-      <inertia ixx="0.164190892485" ixy="0" ixz="0" iyy="0.164190892485" iyz="0" izz="0.0298242025944"/>
+      <inertia ixx="0.158181101379" ixy="0" ixz="0" iyy="0.158181101379" iyz="0" izz="0.0287325633154"/>
     </inertial>
   </link>
   <link name="body_right_knee">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="right_shank">
@@ -452,16 +452,16 @@
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1955 0"/>
     </collision>
     <inertial>
-      <mass value="2.80920246717"/>
+      <mass value="2.70637873715"/>
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1955 0"/>
-      <inertia ixx="0.0383593343101" ixy="0" ixz="0" iyy="0.0383593343101" iyz="0" izz="0.00513972155625"/>
+      <inertia ixx="0.0369552881863" ixy="0" ixz="0" iyy="0.0369552881863" iyz="0" izz="0.00495159508695"/>
     </inertial>
   </link>
   <link name="body_right_ankle">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="right_foot">
@@ -479,23 +479,23 @@
       <origin rpy="0 0 0" xyz="0.07752 -0.034 0"/>
     </collision>
     <inertial>
-      <mass value="0.910491316081"/>
+      <mass value="0.877165091159"/>
       <origin rpy="0 0 0" xyz="0.07752 -0.034 0"/>
-      <inertia ixx="0.00116142952113" ixy="0" ixz="0" iyy="0.00587675478815" iyz="0" izz="0.00541701057462"/>
+      <inertia ixx="0.00111891833978" ixy="0" ixz="0" iyy="0.00566165108708" iyz="0" izz="0.00521873464422"/>
     </inertial>
   </link>
   <link name="body_left_hip_1">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="body_left_hip_2">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="left_thigh">
@@ -513,16 +513,16 @@
       <origin rpy="1.57079632679 0 0" xyz="0 -0.221 0"/>
     </collision>
     <inertial>
-      <mass value="9.16927117713"/>
+      <mass value="8.83365326597"/>
       <origin rpy="1.57079632679 0 0" xyz="0 -0.221 0"/>
-      <inertia ixx="0.164190892485" ixy="0" ixz="0" iyy="0.164190892485" iyz="0" izz="0.0298242025944"/>
+      <inertia ixx="0.158181101379" ixy="0" ixz="0" iyy="0.158181101379" iyz="0" izz="0.0287325633154"/>
     </inertial>
   </link>
   <link name="body_left_knee">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="left_shank">
@@ -540,16 +540,16 @@
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1955 0"/>
     </collision>
     <inertial>
-      <mass value="2.80920246717"/>
+      <mass value="2.70637873715"/>
       <origin rpy="1.57079632679 0 0" xyz="0 -0.1955 0"/>
-      <inertia ixx="0.0383593343101" ixy="0" ixz="0" iyy="0.0383593343101" iyz="0" izz="0.00513972155625"/>
+      <inertia ixx="0.0369552881863" ixy="0" ixz="0" iyy="0.0369552881863" iyz="0" izz="0.00495159508695"/>
     </inertial>
   </link>
   <link name="body_left_ankle">
     <inertial>
-      <mass value="0.001"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="4e-08" ixy="0" ixz="0" iyy="4e-08" iyz="0" izz="4e-08"/>
+      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
     </inertial>
   </link>
   <link name="left_foot">
@@ -567,9 +567,9 @@
       <origin rpy="0 0 0" xyz="0.07752 -0.034 0"/>
     </collision>
     <inertial>
-      <mass value="0.910491316081"/>
+      <mass value="0.877165091159"/>
       <origin rpy="0 0 0" xyz="0.07752 -0.034 0"/>
-      <inertia ixx="0.00116142952113" ixy="0" ixz="0" iyy="0.00587675478815" iyz="0" izz="0.00541701057462"/>
+      <inertia ixx="0.00111891833978" ixy="0" ixz="0" iyy="0.00566165108708" iyz="0" izz="0.00521873464422"/>
     </inertial>
   </link>
   <!-- Define joints -->
@@ -714,7 +714,7 @@
     <child link="body_right_elbow"/>
     <axis xyz="0 0 1"/>
     <origin xyz="0 -0.323 0"/>
-    <limit effort="75.0" lower="-0.087" upper="2.47836753783" velocity="1.0"/>
+    <limit effort="75.0" lower="-0.0872664625997" upper="2.47836753783" velocity="1.0"/>
     <dynamics damping="0.01" friction="0.0"/>
   </joint>
   <joint name="right_elbow_rotation" type="revolute">
@@ -787,7 +787,7 @@
     <child link="body_left_elbow"/>
     <axis xyz="0 0 1"/>
     <origin xyz="0 -0.323 0"/>
-    <limit effort="75.0" lower="-0.087" upper="2.47836753783" velocity="1.0"/>
+    <limit effort="75.0" lower="-0.0872664625997" upper="2.47836753783" velocity="1.0"/>
     <dynamics damping="0.01" friction="0.0"/>
   </joint>
   <joint name="left_elbow_rotation" type="revolute">
@@ -928,169 +928,163 @@
     <limit effort="123.0" lower="-0.663225115758" upper="0.610865238198" velocity="1.0"/>
     <dynamics damping="0.01" friction="0.0"/>
   </joint>
-  <!-- Gazebo plugin for ROS Control -->
   <!-- Note: if adding a Namespace here (other than "/"), the controller_manager should be in the same Namespace, as well as the spawner -->
-  <gazebo>
-    <!-- <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-      <robotNamespace>/dhm</robotNamespace>
-    </plugin> -->
-  </gazebo>
   <gazebo reference="root">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="pelvis">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_L5_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_L5_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="lumbar_spine">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_T12_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_T12_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="thoracic_spine">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_C7_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_C7_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="neck">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_C1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="head">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_CSJ_right_clavicular">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_clavicular">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_shoulder_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_right_shoulder_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_arm">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_elbow">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_forearm">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_wrist">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_hand">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_CSJ_left_clavicular">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_clavicular">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_shoulder_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_left_shoulder_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_arm">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_elbow">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_forearm">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_wrist">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_hand">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_hip_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_right_hip_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_thigh">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_knee">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_shank">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_right_ankle">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="right_foot">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <mu1>0.7</mu1>
     <mu2>0.7</mu2>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_hip_1">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="body_left_hip_2">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_thigh">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     &gt;
 
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_knee">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_shank">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>
   </gazebo>
   <gazebo reference="body_left_ankle">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
   </gazebo>
   <gazebo reference="left_foot">
-    <turnGravityOff> 1 </turnGravityOff>
+    <turnGravityOff> 0 </turnGravityOff>
     <mu1>0.7</mu1>
     <mu2>0.7</mu2>
     <material>Gazebo/Blue</material>
@@ -1098,430 +1092,516 @@
   <transmission name="tran_lumbarspine_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="lumbarspine_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_lumbarspine_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_lumbarspine_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="lumbarspine_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_lumbarspine_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_lumbarspine_rotation">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="lumbarspine_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_lumbarspine_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_thoracicspine_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="thoracicspine_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_thoracicspine_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_thoracicspine_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="thoracicspine_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_thoracicspine_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_thoracicspine_rotation">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="thoracicspine_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_thoracicspine_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_neck_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="neck_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_neck_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_neck_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="neck_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_neck_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_neck_rotation">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="neck_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_neck_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_head_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="head_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_head_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_head_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="head_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_head_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_clavicular_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_clavicular_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_clavicular_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_clavicular_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_clavicular_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_clavicular_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_shoulder_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_shoulder_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_shoulder_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_shoulder_rotation">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_shoulder_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_shoulder_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_shoulder_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_shoulder_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_shoulder_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_elbow_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_elbow_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_elbow_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_elbow_rotation">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_elbow_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_elbow_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_wrist_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_wrist_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_wrist_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_wrist_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_wrist_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_wrist_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_clavicular_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_clavicular_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_clavicular_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_clavicular_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_clavicular_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_clavicular_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_shoulder_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_shoulder_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_shoulder_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_shoulder_rotation">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_shoulder_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_shoulder_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_shoulder_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_shoulder_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_shoulder_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_elbow_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_elbow_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_elbow_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_elbow_rotation">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_elbow_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_elbow_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_wrist_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_wrist_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_wrist_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_wrist_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_wrist_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_wrist_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_hip_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_hip_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_hip_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_hip_rotation">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_hip_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_hip_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_hip_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_hip_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_hip_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_knee_rotation">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_knee_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_knee_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_knee_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_knee_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_knee_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_ankle_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_ankle_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_ankle_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_right_ankle_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="right_ankle_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_right_ankle_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_hip_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_hip_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_hip_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_hip_rotation">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_hip_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_hip_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_hip_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_hip_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_hip_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_knee_rotation">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_knee_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_knee_rotation">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_knee_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_knee_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_knee_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_ankle_flexion">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_ankle_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_ankle_flexion">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="tran_left_ankle_abduction">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_ankle_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
     </joint>
     <actuator name="motor_left_ankle_abduction">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
