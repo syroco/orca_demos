@@ -57,8 +57,11 @@ int main(int argc, char const *argv[])
     std::string urdf_url(argv[1]);
 
     GazeboServer gz_server(argc,argv);
-    auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url,Eigen::Vector3d(0,0,0.901)));
+    auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url));
+    // auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url,Eigen::Vector3d(0,0,0.901)));
 
+    // gz_model.setModelConfiguration( { "joint_0", "joint_3","joint_5"} , {1.0,-M_PI/2.,M_PI/2.});
+    
     gz_model.setModelConfiguration( { "left_shoulder_abduction", "right_shoulder_abduction" } , { M_PI/2., -M_PI/2. } );
     
     orca::utils::Logger::parseArgv(argc, argv);
@@ -67,7 +70,28 @@ int main(int argc, char const *argv[])
     robot_model->loadModelFromFile(urdf_url);
     robot_model->setBaseFrame("root");
     robot_model->setGravity(Eigen::Vector3d(0,0,-9.81));
+    
+    const int ndof = robot_model->getNrOfDegreesOfFreedom();
+    
+    gz_model.setBrakes(false);
+    
+    gz_model.executeAfterWorldUpdate([&](uint32_t n_iter,double current_time,double dt)
+    {
+        robot_model->setRobotState(gz_model.getWorldToBaseTransform().matrix()
+                            ,gz_model.getJointPositions()
+                            ,gz_model.getBaseVelocity()
+                            ,gz_model.getJointVelocities()
+                            ,gz_model.getGravity()
+                        );
+        // Compensate the gravity at least
+        gz_model.setJointGravityTorques(robot_model->getJointGravityTorques());
+        gz_model.setJointTorqueCommand(Eigen::VectorXd::Zero(ndof));
+        // gz_model.setJointTorqueCommand( controller.getJointTorqueCommand() );
+    
+    
+    });
 
+    gazebo::event::Events::pause.Signal(true);
 
     gz_server.run();
     return 0;
