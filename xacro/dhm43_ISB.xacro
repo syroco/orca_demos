@@ -1,0 +1,1691 @@
+<?xml version="1.0"?>
+  <robot  name="dhm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- These values must be entered manually -->
+	<!-- Average BMI = 22. If above, enter 1, else enter 0 -->
+	<xacro:property name="bodyHeight" value="1.7" />
+	<xacro:property name="bodyMass" value="65" />
+	<xacro:property name="isBMIgreaterThanAverage" value="1"/>
+	<!-- From now on, nothing should be changed in the file -->
+
+	<xacro:property name="BMI" value="${bodyMass/(bodyHeight*bodyHeight)}" />
+	<xacro:property name="PI" value="3.1415926535897931"/>
+
+	<!-- Joint maximal velocity (guessed) -->
+	<xacro:property name="maxVelJoint" value="1.0" />
+
+	<!-- Scaling factor for joint maximal torque capacity (real capacity = factor * average human capacity)-->
+	<xacro:property name="forceCapacity" value="1.0" />
+
+	<!-- Joint dynamic properties -->
+	<xacro:property name="jointDamping" value="0.01" />
+	<xacro:property name="jointFriction" value="0.0" />
+
+	<!-- Define length of body segments from total body bodyHeight -->
+	<xacro:property name="ankleHeight" value="${bodyHeight*0.04}" />
+	<xacro:property name="kneeHeight" value="${bodyHeight*0.27}" />
+	<xacro:property name="hipHeight" value="${bodyHeight*0.53}" />
+	<xacro:property name="shoulderHeight" value="${bodyHeight*0.82}" />
+	<xacro:property name="hipWidth" value="${bodyHeight*0.105}" />
+	<xacro:property name="armSpan" value="${bodyHeight*1.09}" />
+	<xacro:property name="handLength" value="${bodyHeight*0.1}" />
+	<xacro:property name="footLength" value="${bodyHeight*0.152}" />
+
+	<xacro:property name="S5_L5" value="${0.055*bodyHeight}" />
+	<xacro:property name="L5_T12" value="${0.105*bodyHeight}" />
+	<xacro:property name="T12_C7" value="${0.13*bodyHeight}" />
+	<xacro:property name="CSJ_C7" value="${0.025*bodyHeight}" />
+	<xacro:property name="T12_CSJ" value="${T12_C7 - CSJ_C7}" />
+	<xacro:property name="C7_C1" value="${0.055*bodyHeight}" />
+	<xacro:property name="C1_headtop" value="${0.125*bodyHeight}" />
+	<xacro:property name="headbase_headtop" value="${1.1*C1_headtop}" />
+
+	<xacro:property name="shoulder_elbow" value="${bodyHeight*0.19}" />
+	<xacro:property name="elbow_wrist" value="${bodyHeight*0.15}" />
+	<xacro:property name="spine_shoulder" value="${0.5*armSpan - shoulder_elbow - elbow_wrist - handLength}" />
+	<xacro:property name="CSJ_spine" value="${0.15*spine_shoulder}" />
+	<xacro:property name="CSJ_shoulder" value="${spine_shoulder-CSJ_spine}" />
+
+	<xacro:property name="S5_hip_horizontal" value="${0.5*hipWidth}" />
+	<xacro:property name="hip_knee" value="${hipHeight-kneeHeight}" />
+	<xacro:property name="knee_ankle" value="${kneeHeight-ankleHeight}" />
+
+	<!-- Define thickness of body segment from BMI -->
+	<xacro:property name="slimBMI" value="17" />
+	<xacro:property name="normBMI" value="22" />
+	<xacro:property name="fatBMI" value="40" />
+	<xacro:property name="slimAlpha" value="0.9" />
+	<xacro:property name="normAlpha" value="1.0" />
+	<xacro:property name="fatAlpha" value="1.3" />
+	
+	<xacro:if value="${isBMIgreaterThanAverage == 1}">
+		<xacro:property name="alpha" value="${1 + (fatAlpha  - normAlpha) * (BMI - normBMI) / (fatBMI - normBMI)}" />-->
+	</xacro:if>
+	<xacro:if value="${isBMIgreaterThanAverage == 0}">
+		<xacro:property name="alpha" value="${1 - (normAlpha - slimAlpha) * (normBMI - BMI) / (normBMI - slimBMI)}" />-->
+	</xacro:if>
+
+	<!-- Define body segments shapes -->
+	<!-- For collision shapes, pelvis and lumbarspine width is scaled by a factor collision_width_factor to enable arms along body without collision issues with the torso -->
+	<xacro:property name="collision_width_factor" value="0.75"/>
+
+	<xacro:property name="hip_thickness" value="${alpha*0.08}" />
+
+	<xacro:property name="pelvis_length" value="${S5_L5 + hip_thickness}" /> 
+	<xacro:property name="pelvis_width" value="${hipWidth + 0.7*hip_thickness + alpha*0.11}" />
+	<xacro:property name="pelvis_depth" value="${2*alpha*0.11}" />
+
+	<xacro:property name="lumbarspine_length" value="${L5_T12}" />
+	<xacro:property name="lumbarspine_width" value="${hipWidth+alpha*0.105}" />
+	<xacro:property name="lumbarspine_depth" value="${2*alpha*0.105}" />
+
+	<xacro:property name="thoracicspine_length" value="${T12_C7}" />
+	<xacro:property name="thoracicspine_width" value="${2*0.7*spine_shoulder+alpha*0.10}" />
+	<xacro:property name="thoracicspine_depth" value="${2*alpha*0.10}" />
+
+	<xacro:property name="neck_length" value="${C7_C1}" />
+	<xacro:property name="neck_radius" value="${alpha*0.045}" />
+
+	<xacro:property name="head_length" value="${headbase_headtop}" />
+	<xacro:property name="head_radius" value="${0.1}" />
+
+	<xacro:property name="clavicular_length" value="${CSJ_shoulder}" />
+	<xacro:property name="clavicular_radius" value="${alpha*0.06}" />
+
+	<xacro:property name="arm_length" value="${shoulder_elbow}" />
+	<xacro:property name="arm_radius" value="${alpha*0.05}" />
+
+	<xacro:property name="forearm_length" value="${elbow_wrist}" />
+	<xacro:property name="forearm_radius" value="${alpha*0.04}" />
+
+	<xacro:property name="hand_length" value="${handLength}" />
+	<xacro:property name="hand_width" value="${2*alpha*0.04}" />
+	<xacro:property name="hand_depth" value="${2*alpha*0.015}" />
+
+	<xacro:property name="thigh_length" value="${hip_knee}" />
+	<xacro:property name="thigh_radius" value="${alpha*0.08}" />
+
+	<xacro:property name="shank_length" value="${knee_ankle}" />
+	<xacro:property name="shank_radius" value="${alpha*0.06}" />
+
+	<xacro:property name="foot_length" value="${footLength}" />
+	<xacro:property name="foot_width" value="${0.4*footLength}" />
+	<xacro:property name="foot_depth" value="${ankleHeight}" />
+
+	<!-- Define mass normalization value and segment masses -->
+
+	<!-- Mass of virtual bodies must be taken into account to have the correct full mass -->
+	<xacro:property name="nb_virtualBodies" value="25" />
+
+	<xacro:property name="massNorm" value="${-0.0426 + 1.00096*bodyMass + 0.00058*bodyHeight*100 + nb_virtualBodies*virtual_mass}" />
+
+	<xacro:property name="lowertorso_mass" value="${bodyMass * (-7.498 + 0.0976*bodyMass + 0.04896*bodyHeight*100) / massNorm}" />
+	<xacro:property name="middletorso_mass" value="${bodyMass * (7.181 + 0.2234*bodyMass - 0.0663*bodyHeight*100) / massNorm}" />
+	<xacro:property name="uppertorso_mass" value="${bodyMass * (8.2144 + 0.1862*bodyMass - 0.0584*bodyHeight*100) / massNorm}" />
+	<xacro:property name="pelvis_mass" value="${lowertorso_mass}" />
+	<xacro:property name="lumbarspine_mass" value="${middletorso_mass}" />
+	<xacro:property name="thoracicspine_mass" value="${(1.0-0.1)*uppertorso_mass}" />
+	<xacro:property name="neckandhead_mass" value="${bodyMass * (1.296 + 0.0171*bodyMass + 0.0143*bodyHeight*100) / massNorm}" />
+	<xacro:property name="neck_mass" value="${0.1*neckandhead_mass}" />
+	<xacro:property name="head_mass" value="${0.9*neckandhead_mass}" />
+	<xacro:property name="clavicular_mass" value="${0.05*uppertorso_mass}" />
+	<xacro:property name="arm_mass" value="${bodyMass * (0.25 + 0.03012*bodyMass - 0.0027*bodyHeight*100) / massNorm}" />
+	<xacro:property name="forearm_mass" value="${bodyMass * (0.3185 + 0.01445*bodyMass - 0.00114*bodyHeight*100) / massNorm}" />
+	<xacro:property name="hand_mass" value="${bodyMass * (-0.1165 + 0.0036*bodyMass + 0.00175*bodyHeight*100) / massNorm}" />
+	<xacro:property name="thigh_mass" value="${bodyMass * (-2.649 + 0.1463*bodyMass + 0.0137*bodyHeight*100) / massNorm}" />
+	<xacro:property name="shank_mass" value="${bodyMass * (-1.592 + 0.03616*bodyMass + 0.0121*bodyHeight*100) / massNorm}" />
+	<xacro:property name="foot_mass" value="${bodyMass * (-0.829 + 0.0077*bodyMass + 0.0073*bodyHeight*100) / massNorm}" />
+
+	<!-- Macro which computes a shape (box or cylinder) inertia -->
+	<!-- The lengths Lx, Ly and Lz are in the segment inertial frame (and not in the segment base frame, i.e. joint frame) -->
+	<!-- For teh cylinder, the cylinder axis is along Z -->
+	<xacro:macro name="box_inertia" params="m Lx Ly Lz">
+		<inertia ixx="${1/12 * m * (Ly*Ly + Lz*Lz)}" ixy="0" ixz="0" iyy="${1/12 * m * (Lx*Lx + Lz*Lz)}" iyz="0" izz="${1/12 * m * (Lx*Lx + Ly*Ly)}" />
+	</xacro:macro>
+	<xacro:macro name="cylinder_inertia" params="m L r">
+		<inertia ixx="${1/12 * m * (3*r*r + L*L)}" ixy="0" ixz="0" iyy="${1/12 * m * (3*r*r + L*L)}" iyz="0" izz="${1/2 * m * r*r}" />
+	</xacro:macro>			
+	<xacro:macro name="sphere_inertia" params="m r">
+		<inertia ixx="${2/5 * m * r*r}" ixy="0" ixz="0" iyy="${2/5 * m * r*r}" iyz="0" izz="${2/5 * m * r*r}" />
+	</xacro:macro>	
+
+	<!-- URDF only accepts 1DoF joint. 
+	A joint with several DoFs can be implemented as a succession of 1DoF-joint linked by "virtual" bodies.
+	These "virtual" bodies must have a physical mass for the simulation to run. 
+	They are represented as spheres with a virtual_mass and vitualRadius defined hereafter --> 
+	<xacro:property name="virtual_mass" value="0.001" />
+	<xacro:property name="virtual_radius" value="0.01" />
+	<xacro:macro name="virtual_body" params="name">
+		<link name="${name}">
+			<inertial>
+				<mass value="${virtual_mass}" />
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<xacro:sphere_inertia m="${virtual_mass}" r="${virtual_radius}"/>
+			</inertial>
+		</link>
+	</xacro:macro>
+
+	<!-- Materials -->
+	<material name="blue">
+		<color rgba="0 0 0.8 1"/>
+	</material>
+
+	<!-- Define bodies -->
+	<xacro:virtual_body name="root" />
+
+	<link name="pelvis">
+		<visual>
+			<geometry>
+				<box size="${pelvis_depth} ${pelvis_length} ${pelvis_width}"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 ${pelvis_length/2-hip_thickness} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<box size="${pelvis_depth} ${pelvis_length} ${collision_width_factor*pelvis_width}"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 ${pelvis_length/2-hip_thickness} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${pelvis_mass}" />
+			<origin rpy="0 0 0" xyz="0 ${pelvis_length/2-hip_thickness} 0"/>
+			<xacro:box_inertia m="${pelvis_mass}" Lx="${pelvis_depth}" Ly="${pelvis_length}" Lz="${pelvis_width}"/>
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_L5_1" />
+	<xacro:virtual_body name="body_L5_2" />
+
+	<link name="lumbar_spine">
+		<visual>
+			<geometry>
+				<box size="${lumbarspine_depth}  ${lumbarspine_length} ${lumbarspine_width}"/>
+			</geometry>
+ 			<origin rpy="0 0 0" xyz="0 ${lumbarspine_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<box size="${lumbarspine_depth}  ${lumbarspine_length} ${collision_width_factor*lumbarspine_width}"/>	
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 ${lumbarspine_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${lumbarspine_mass}" />
+			<origin rpy="0 0 0" xyz="0 ${lumbarspine_length/2} 0"/>
+			<xacro:box_inertia m="${lumbarspine_mass}" Lx="${lumbarspine_depth}" Ly="${lumbarspine_length}" Lz="${lumbarspine_width}"/>
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_T12_1" />
+	<xacro:virtual_body name="body_T12_2" />
+
+	<link name="thoracic_spine">
+		<visual>
+			<geometry>
+				<box size="${thoracicspine_depth} ${thoracicspine_length} ${thoracicspine_width}"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 ${thoracicspine_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<box size="${thoracicspine_depth} ${thoracicspine_length} ${thoracicspine_width}"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 ${thoracicspine_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${thoracicspine_mass}" />
+			<origin rpy="0 0 0" xyz="0 ${thoracicspine_length/2} 0"/>
+			<xacro:box_inertia m="${thoracicspine_mass}" Lx="${thoracicspine_depth}" Ly="${thoracicspine_length}" Lz="${thoracicspine_width}"/>
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_C7_1" />
+	<xacro:virtual_body name="body_C7_2" />
+
+	<link name="neck">
+		<visual>
+			<geometry>
+				<cylinder length="${neck_length}" radius="${neck_radius}" />    
+			</geometry>
+			<origin rpy="${-PI/2} 0 0" xyz="0 ${neck_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="${neck_length}" radius="${neck_radius}" />  
+			</geometry>
+			<origin rpy="${-PI/2} 0 0" xyz="0 ${neck_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${neck_mass}" />
+			<origin rpy="${-PI/2} 0 0" xyz="0 ${neck_length/2} 0"/>
+			<xacro:cylinder_inertia m="${neck_mass}" L="${neck_length}" r="${neck_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_C1" />
+
+	<link name="head">
+		<visual>
+			<geometry>
+				<cylinder length="${head_length}" radius="${head_radius}"/>     
+			</geometry>
+			<origin rpy="${-PI/2} 0 0" xyz="0 ${C1_headtop - headbase_headtop/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="${head_length}" radius="${head_radius}"/>    
+			</geometry>
+			<origin rpy="${-PI/2} 0 0" xyz="0 ${C1_headtop - headbase_headtop/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${head_mass}" />
+			<origin rpy="${-PI/2} 0 0" xyz="0 ${C1_headtop - headbase_headtop/2} 0"/>
+			<xacro:cylinder_inertia m="${head_mass}" L="${head_length}" r="${head_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_CSJ_right_clavicular" />
+
+	<link name="right_clavicular">
+		<visual>
+			<geometry>
+				<cylinder length="${clavicular_length}" radius="${clavicular_radius}"/> 
+			</geometry>
+			<origin  rpy="0 0 0" xyz="0 0 ${clavicular_length/2}"/>
+			<material name="blue" />
+		</visual>
+		<inertial>
+			<mass value="${clavicular_mass}" />
+			<origin  rpy="0 0 0" xyz="0 0 ${clavicular_length/2}"/>
+			<xacro:cylinder_inertia m="${clavicular_mass}" L="${clavicular_length}" r="${clavicular_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_right_shoulder_1" />
+	<xacro:virtual_body name="body_right_shoulder_2" />
+
+	<link name="right_arm">
+		<visual>
+			<geometry>
+				<cylinder length="${arm_length}" radius="${arm_radius}"/>    
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-arm_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="${arm_length}" radius="${arm_radius}"/>      
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-arm_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${arm_mass}" />
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-arm_length/2} 0"/>
+			<xacro:cylinder_inertia m="${arm_mass}" L="${arm_length}" r="${arm_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_right_elbow" />
+
+	<link name="right_forearm">
+		<visual>
+			<geometry>
+				<cylinder length="${forearm_length}" radius="${forearm_radius}"/>
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-forearm_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="${forearm_length}" radius="${forearm_radius}"/>
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-forearm_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${forearm_mass}" />
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-forearm_length/2} 0"/>
+			<xacro:cylinder_inertia m="${forearm_mass}" L="${forearm_length}" r="${forearm_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_right_wrist" />
+
+	<link name="right_hand">
+		<visual>
+			<geometry>
+				<box size="${hand_depth} ${hand_length} ${hand_width}"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 ${-hand_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<box size="${hand_depth} ${hand_length} ${hand_width}"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 ${-hand_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${hand_mass}" />
+			<origin rpy="0 0 0" xyz="0 ${-hand_length/2} 0" />
+			<xacro:box_inertia m="${hand_mass}" Lx="${hand_depth}" Ly="${hand_length}" Lz="${hand_width}"/>
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_CSJ_left_clavicular" />
+
+	<link name="left_clavicular">
+		<visual>
+			<geometry>
+				<cylinder length="${clavicular_length}" radius="${clavicular_radius}"/> 
+			</geometry>
+			<origin  rpy="0 0 0" xyz="0 0 ${-clavicular_length/2}"/>
+			<material name="blue" />
+		</visual>
+		<inertial>
+
+			<mass value="${clavicular_mass}" />
+			<origin  rpy="0 0 0" xyz="0 0 ${-clavicular_length/2}"/>
+			<xacro:cylinder_inertia m="${clavicular_mass}" L="${clavicular_length}" r="${clavicular_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_left_shoulder_1" />
+	<xacro:virtual_body name="body_left_shoulder_2" />
+
+	<link name="left_arm">
+		<visual>
+			<geometry>
+				<cylinder length="${arm_length}" radius="${arm_radius}"/>    
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-arm_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="${arm_length}" radius="${arm_radius}"/>      
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-arm_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${arm_mass}" />
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-arm_length/2} 0"/>>
+			<xacro:cylinder_inertia m="${arm_mass}" L="${arm_length}" r="${arm_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_left_elbow" />
+
+	<link name="left_forearm">
+		<visual>
+			<geometry>
+				<cylinder length="${forearm_length}" radius="${forearm_radius}"/>
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-forearm_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="${forearm_length}" radius="${forearm_radius}"/>
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-forearm_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${forearm_mass}" />
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-forearm_length/2} 0"/>
+			<xacro:cylinder_inertia m="${forearm_mass}" L="${forearm_length}" r="${forearm_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_left_wrist" />
+
+	<link name="left_hand">
+		<visual>
+			<geometry>
+				<box size="${hand_depth} ${hand_length} ${hand_width}"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 ${-hand_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<box size="${hand_depth} ${hand_length} ${hand_width}"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 ${-hand_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${hand_mass}" />
+			<origin rpy="0 0 0" xyz="0 ${-hand_length/2} 0" />
+			<xacro:box_inertia m="${hand_mass}" Lx="${hand_depth}" Ly="${hand_length}" Lz="${hand_width}"/>
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_right_hip_1" />
+	<xacro:virtual_body name="body_right_hip_2" />
+
+	<link name="right_thigh">
+		<visual>
+			<geometry>
+				<cylinder length="${thigh_length}" radius="${thigh_radius}"/>   
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-thigh_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="${thigh_length}" radius="${thigh_radius}"/>    
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-thigh_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${thigh_mass}" />
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-thigh_length/2} 0"/>
+			<xacro:cylinder_inertia m="${thigh_mass}" L="${thigh_length}" r="${thigh_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_right_knee" />
+
+	<link name="right_shank">
+		<visual>
+			<geometry>
+				<cylinder length="${shank_length}" radius="${shank_radius}"/>
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-shank_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="${shank_length}" radius="${shank_radius}"/>
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-shank_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${shank_mass}" />
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-shank_length/2} 0"/>
+			<xacro:cylinder_inertia m="${shank_mass}" L="${shank_length}" r="${shank_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_right_ankle" />
+
+	<link name="right_foot">
+		<visual>
+			<geometry>
+				<box size="${foot_length} ${foot_depth} ${foot_width}" />
+			</geometry>
+			<origin rpy="0 0 0" xyz="${foot_length/2-0.2*foot_length} ${-foot_depth/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<box size="${foot_length} ${foot_depth} ${foot_width}" />
+			</geometry>
+			<origin rpy="0 0 0" xyz="${foot_length/2-0.2*foot_length} ${-foot_depth/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${foot_mass}" />
+			<origin rpy="0 0 0" xyz="${foot_length/2-0.2*foot_length} ${-foot_depth/2} 0"/>
+			<xacro:box_inertia m="${foot_mass}" Lx="${foot_length}" Ly="${foot_depth}" Lz="${foot_width}"/>
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_left_hip_1" />
+	<xacro:virtual_body name="body_left_hip_2" />
+
+	<link name="left_thigh">
+		<visual>
+			<geometry>
+				<cylinder length="${thigh_length}" radius="${thigh_radius}" />   
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-thigh_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="${thigh_length}" radius="${thigh_radius}" />  
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-thigh_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${thigh_mass}" />
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-thigh_length/2} 0"/>
+			<xacro:cylinder_inertia m="${thigh_mass}" L="${thigh_length}" r="${thigh_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_left_knee" />
+
+	<link name="left_shank">
+		<visual>
+			<geometry>
+				<cylinder length="${shank_length}" radius="${shank_radius}" />
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-shank_length/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<cylinder length="${-shank_length}" radius="${shank_radius}" />
+			</geometry>
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-shank_length/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${shank_mass}" />
+			<origin rpy="${PI/2} 0 0" xyz="0 ${-shank_length/2} 0"/>
+			<xacro:cylinder_inertia m="${shank_mass}" L="${shank_length}" r="${shank_radius}" />
+		</inertial>
+	</link>
+
+	<xacro:virtual_body name="body_left_ankle" />
+
+	<link name="left_foot">
+		<visual>
+			<geometry>
+				<box size="${foot_length} ${foot_depth} ${foot_width}" />
+			</geometry>
+			<origin rpy="0 0 0" xyz="${foot_length/2-0.2*foot_length} ${-foot_depth/2} 0"/>
+			<material name="blue" />
+		</visual>
+		<collision>
+			<geometry>
+				<box size="${foot_length} ${foot_depth} ${foot_width}" />
+			</geometry>
+			<origin rpy="0 0 0" xyz="${foot_length/2-0.2*foot_length} ${-foot_depth/2} 0"/>
+		</collision>
+		<inertial>
+			<mass value="${foot_mass}" />
+			<origin rpy="0 0 0" xyz="${foot_length/2-0.2*foot_length} ${-foot_depth/2} 0"/>
+			<xacro:box_inertia m="${foot_mass}" Lx="${foot_length}" Ly="${foot_depth}" Lz="${foot_width}"/>
+		</inertial>
+	</link>
+
+	<!-- Define joints -->
+	<!-- Joint for correct pelvis orientation --> 
+	<joint name="root_ISB_orientation" type="fixed">
+		<parent link="root" />
+		<child link="pelvis" />
+		<origin rpy="${PI/2} 0 0" xyz="0 0 0" />
+	</joint>
+
+	<!-- Back joints -->
+	<joint name="lumbarspine_abduction" type="revolute">
+		<parent link="pelvis"/>
+		<child link="body_L5_1"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 ${S5_L5} 0"/>
+		<limit effort="${155*forceCapacity}" lower="${-15*PI/180}" upper="${15*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="lumbarspine_rotation" type="revolute">
+		<parent link="body_L5_1"/>
+		<child link="body_L5_2"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${65*forceCapacity}" lower="${-20*PI/180}" upper="${20*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="lumbarspine_flexion" type="revolute">
+		<parent link="body_L5_2"/>
+		<child link="lumbar_spine"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${228*forceCapacity}" lower="${-25*PI/180}" upper="${10*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="thoracicspine_abduction" type="revolute">
+		<parent link="lumbar_spine"/>
+		<child link="body_T12_1"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 ${L5_T12} 0"/>
+		<limit effort="${155*forceCapacity}" lower="${-15*PI/180}" upper="${15*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="thoracicspine_rotation" type="revolute">
+		<parent link="body_T12_1"/>
+		<child link="body_T12_2"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${65*forceCapacity}" lower="${-15*PI/180}" upper="${15*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="thoracicspine_flexion" type="revolute">
+		<parent link="body_T12_2"/>
+		<child link="thoracic_spine"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${228*forceCapacity}" lower="${-25*PI/180}" upper="${10*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="neck_abduction" type="revolute">
+		<parent link="thoracic_spine"/>
+		<child link="body_C7_1"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 ${T12_C7} 0"/>
+		<limit effort="50" lower="${-25*PI/180}" upper="${25*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="neck_rotation" type="revolute">
+		<parent link="body_C7_1"/>
+		<child link="body_C7_2"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="50" lower="${-85*PI/180}" upper="${85*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="neck_flexion" type="revolute">
+		<parent link="body_C7_2"/>
+		<child link="neck"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="50" lower="${-45*PI/180}" upper="${25*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="head_abduction" type="revolute">
+		<parent link="neck"/>
+		<child link="body_C1"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 ${C7_C1} 0"/>
+		<limit effort="20" lower="${-25*PI/180}" upper="${25*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="head_flexion" type="revolute">
+		<parent link="body_C1"/>
+		<child link="head"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="20" lower="${-40*PI/180}" upper="${25*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<!-- Right arm joints -->
+	<joint name="right_clavicular_flexion" type="revolute">
+		<parent link="thoracic_spine"/>
+		<child link="body_CSJ_right_clavicular"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 ${T12_CSJ} ${CSJ_spine}"/>
+		<limit effort="${105*forceCapacity}" lower="${-40*PI/180}" upper="${10*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_clavicular_abduction" type="revolute">
+		<parent link="body_CSJ_right_clavicular"/>
+		<child link="right_clavicular"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${107*forceCapacity}" lower="${-15*PI/180}" upper="${20*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_shoulder_abduction" type="revolute">
+		<parent link="right_clavicular"/>
+		<child link="body_right_shoulder_1"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 0 ${CSJ_shoulder}"/>
+		<limit effort="${69*forceCapacity}" lower="${-134*PI/180}" upper="${48*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_shoulder_rotation" type="revolute">
+		<parent link="body_right_shoulder_1"/>
+		<child link="body_right_shoulder_2"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${51*forceCapacity}" lower="${-34*PI/180}" upper="${97*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_shoulder_flexion" type="revolute">
+		<parent link="body_right_shoulder_2"/>
+		<child link="right_arm"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${90*forceCapacity}" lower="${-61*PI/180}" upper="${188*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_elbow_flexion" type="revolute">
+		<parent link="right_arm"/>
+		<child link="body_right_elbow"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 ${-shoulder_elbow} 0"/>
+		<limit effort="${75*forceCapacity}" lower="${-0*PI/180}" upper="${142*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_elbow_rotation" type="revolute">
+		<parent link="body_right_elbow"/>
+		<child link="right_forearm"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${13*forceCapacity}" lower="${-23*PI/180}" upper="${167*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_wrist_flexion" type="revolute">
+		<parent link="right_forearm"/>
+		<child link="body_right_wrist"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 ${-elbow_wrist} 0"/>
+		<limit effort="${10*forceCapacity}" lower="${-99*PI/180}" upper="${90*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_wrist_abduction" type="revolute">
+		<parent link="body_right_wrist"/>
+		<child link="right_hand"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${11*forceCapacity}" lower="${-47*PI/180}" upper="${27*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<!-- Left arm joints -->
+	<joint name="left_clavicular_flexion" type="revolute">
+		<parent link="thoracic_spine"/>
+		<child link="body_CSJ_left_clavicular"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 ${T12_CSJ} ${-CSJ_spine}"/>
+		<limit effort="${105*forceCapacity}" lower="${-10*PI/180}" upper="${40*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_clavicular_abduction" type="revolute">
+		<parent link="body_CSJ_left_clavicular"/>
+		<child link="left_clavicular"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${107*forceCapacity}" lower="${-20*PI/180}" upper="${15*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_shoulder_abduction" type="revolute">
+		<parent link="left_clavicular"/>
+		<child link="body_left_shoulder_1"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 0 ${-CSJ_shoulder}"/>
+		<limit effort="${69*forceCapacity}" lower="${-48*PI/180}" upper="${134*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_shoulder_rotation" type="revolute">
+		<parent link="body_left_shoulder_1"/>
+		<child link="body_left_shoulder_2"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${51*forceCapacity}" lower="${-97*PI/180}" upper="${34*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_shoulder_flexion" type="revolute">
+		<parent link="body_left_shoulder_2"/>
+		<child link="left_arm"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${90*forceCapacity}" lower="${-61*PI/180}" upper="${188*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_elbow_flexion" type="revolute">
+		<parent link="left_arm"/>
+		<child link="body_left_elbow"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 ${-shoulder_elbow} 0"/>
+		<limit effort="${75*forceCapacity}" lower="${-0*PI/180}" upper="${142*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_elbow_rotation" type="revolute">
+		<parent link="body_left_elbow"/>
+		<child link="left_forearm"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${13*forceCapacity}" lower="${-167*PI/180}" upper="${23*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_wrist_flexion" type="revolute">
+		<parent link="left_forearm"/>
+		<child link="body_left_wrist"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 ${-elbow_wrist} 0"/>
+		<limit effort="${10*forceCapacity}" lower="${-90*PI/180}" upper="${99*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_wrist_abduction" type="revolute">
+		<parent link="body_left_wrist"/>
+		<child link="left_hand"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${11*forceCapacity}" lower="${-27*PI/180}" upper="${47*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<!-- Right leg joints -->
+	<joint name="right_hip_abduction" type="revolute">
+		<parent link="pelvis"/>
+		<child link="body_right_hip_1"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 0 ${S5_hip_horizontal}"/>
+		<limit effort="${108*forceCapacity}" lower="${-53*PI/180}" upper="${31*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_hip_rotation" type="revolute">
+		<parent link="body_right_hip_1"/>
+		<child link="body_right_hip_2"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${67*forceCapacity}" lower="${-34*PI/180}" upper="${39*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_hip_flexion" type="revolute">
+		<parent link="body_right_hip_2"/>
+		<child link="right_thigh"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${186*forceCapacity}" lower="${-15*PI/180}" upper="${113*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_knee_rotation" type="revolute">
+		<parent link="right_thigh"/>
+		<child link="body_right_knee"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 ${-hip_knee} 0"/>
+		<limit effort="${22*forceCapacity}" lower="${-43*PI/180}" upper="${35*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_knee_flexion" type="revolute">
+		<parent link="body_right_knee"/>
+		<child link="right_shank"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${164*forceCapacity}" lower="${-140*PI/180}" upper="${5*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_ankle_abduction" type="revolute">
+		<parent link="right_shank"/>
+		<child link="body_right_ankle"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 ${-knee_ankle} 0"/>
+		<limit effort="${29*forceCapacity}" lower="${-24*PI/180}" upper="${23*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="right_ankle_flexion" type="revolute">
+		<parent link="body_right_ankle"/>
+		<child link="right_foot"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${123*forceCapacity}" lower="${-38*PI/180}" upper="${35*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<!-- Left leg joints -->
+	<joint name="left_hip_abduction" type="revolute">
+		<parent link="pelvis"/>
+		<child link="body_left_hip_1"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 0 ${-S5_hip_horizontal}"/>
+		<limit effort="${108*forceCapacity}" lower="${-31*PI/180}" upper="${53*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_hip_rotation" type="revolute">
+		<parent link="body_left_hip_1"/>
+		<child link="body_left_hip_2"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${67*forceCapacity}" lower="${-39*PI/180}" upper="${34*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_hip_flexion" type="revolute">
+		<parent link="body_left_hip_2"/>
+		<child link="left_thigh"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>		
+		<limit effort="${186*forceCapacity}" lower="${-15*PI/180}" upper="${113*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_knee_rotation" type="revolute">
+		<parent link="left_thigh"/>
+		<child link="body_left_knee"/>
+		<axis xyz="0 1 0"/>
+		<origin xyz="0 ${-hip_knee} 0"/>
+		<limit effort="${22*forceCapacity}" lower="${-35*PI/180}" upper="${43*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_knee_flexion" type="revolute">
+		<parent link="body_left_knee"/>
+		<child link="left_shank"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${164*forceCapacity}" lower="${-140*PI/180}" upper="${5*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_ankle_abduction" type="revolute">
+		<parent link="left_shank"/>
+		<child link="body_left_ankle"/>
+		<axis xyz="1 0 0"/>
+		<origin xyz="0 ${-knee_ankle} 0"/>
+		<limit effort="${29*forceCapacity}" lower="${-23*PI/180}" upper="${24*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<joint name="left_ankle_flexion" type="revolute">
+		<parent link="body_left_ankle"/>
+		<child link="left_foot"/>
+		<axis xyz="0 0 1"/>
+		<origin xyz="0 0 0"/>
+		<limit effort="${123*forceCapacity}" lower="${-38*PI/180}" upper="${35*PI/180}" velocity="${maxVelJoint}"/>
+		<dynamics damping="${jointDamping}" friction="${jointFriction}"/>
+	</joint>
+
+	<!-- Gazebo plugin for ROS Control -->
+	<!-- Note: if adding a Namespace here (other than "/"), the controller_manager should be in the same Namespace, as well as the spawner -->
+	<gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+		<robotNamespace>/dhm</robotNamespace>
+		</plugin>
+	</gazebo>
+
+	<gazebo reference="root">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="pelvis">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_L5_1">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="body_L5_2">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="lumbar_spine">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_T12_1">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="body_T12_2">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="thoracic_spine">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_C7_1">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="body_C7_2">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="neck">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_C1">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="head">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_CSJ_right_clavicular">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="right_clavicular">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_right_shoulder_1">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="body_right_shoulder_2">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="right_arm">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_right_elbow">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="right_forearm">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_right_wrist">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="right_hand">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_CSJ_left_clavicular">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="left_clavicular">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_left_shoulder_1">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="body_left_shoulder_2">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="left_arm">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_left_elbow">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="left_forearm">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_left_wrist">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="left_hand">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_right_hip_1">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="body_right_hip_2">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="right_thigh">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_right_knee">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="right_shank">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_right_ankle">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="right_foot">
+		<turnGravityOff> 1 </turnGravityOff>
+		<mu1>0.7</mu1>
+		<mu2>0.7</mu2>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_left_hip_1">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="body_left_hip_2">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="left_thigh">
+		<turnGravityOff> 1 </turnGravityOff>>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_left_knee">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="left_shank">
+		<turnGravityOff> 1 </turnGravityOff>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="body_left_ankle">
+		<turnGravityOff> 1 </turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="left_foot">
+		<turnGravityOff> 1 </turnGravityOff>
+		<mu1>0.7</mu1>
+		<mu2>0.7</mu2>
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<transmission name="tran_lumbarspine_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="lumbarspine_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_lumbarspine_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_lumbarspine_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="lumbarspine_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_lumbarspine_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_lumbarspine_rotation">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="lumbarspine_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_lumbarspine_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_thoracicspine_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="thoracicspine_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_thoracicspine_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_thoracicspine_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="thoracicspine_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_thoracicspine_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_thoracicspine_rotation">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="thoracicspine_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_thoracicspine_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_neck_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="neck_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_neck_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_neck_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="neck_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_neck_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_neck_rotation">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="neck_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_neck_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_head_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="head_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_head_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_head_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="head_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_head_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_clavicular_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_clavicular_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_clavicular_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_clavicular_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_clavicular_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_clavicular_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_shoulder_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_shoulder_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_shoulder_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_shoulder_rotation">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_shoulder_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_shoulder_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_shoulder_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_shoulder_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_shoulder_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_elbow_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_elbow_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_elbow_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_elbow_rotation">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_elbow_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_elbow_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_wrist_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_wrist_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_wrist_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_wrist_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_wrist_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_wrist_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_clavicular_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_clavicular_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_clavicular_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_clavicular_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_clavicular_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_clavicular_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_shoulder_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_shoulder_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_shoulder_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_shoulder_rotation">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_shoulder_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_shoulder_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_shoulder_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_shoulder_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_shoulder_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_elbow_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_elbow_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_elbow_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_elbow_rotation">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_elbow_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_elbow_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_wrist_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_wrist_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_wrist_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_wrist_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_wrist_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_wrist_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_hip_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_hip_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_hip_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_hip_rotation">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_hip_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_hip_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_hip_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_hip_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_hip_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_knee_rotation">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_knee_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_knee_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_knee_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_knee_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_knee_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_ankle_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_ankle_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_ankle_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_right_ankle_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="right_ankle_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_right_ankle_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_hip_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_hip_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_hip_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_hip_rotation">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_hip_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_hip_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_hip_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_hip_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_hip_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_knee_rotation">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_knee_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_knee_rotation">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_knee_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_knee_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_knee_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_ankle_flexion">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_ankle_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_ankle_flexion">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="tran_left_ankle_abduction">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_ankle_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_ankle_abduction">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+</robot>

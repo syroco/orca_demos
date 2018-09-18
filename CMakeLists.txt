@@ -19,3 +19,7 @@ endif()
 add_executable(orca_gazebo_example orca_gazebo_example.cc)
 target_link_libraries(orca_gazebo_example ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES})
 install(TARGETS orca_gazebo_example DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+add_executable(human_model_test_01 human_model_test_01.cc)
+target_link_libraries(human_model_test_01 ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES})
+install(TARGETS human_model_test_01 DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
