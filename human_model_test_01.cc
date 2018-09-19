@@ -57,23 +57,25 @@ int main(int argc, char const *argv[])
     std::string urdf_url(argv[1]);
 
     GazeboServer gz_server(argc,argv);
-    // auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url));
-    auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url,Eigen::Vector3d(0,0,0.901)));
+    auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url));
+    // auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url,Eigen::Vector3d(0,0,0.901)));
 
-    // gz_model.setModelConfiguration( { "joint_0", "joint_3","joint_5"} , {1.0,-M_PI/2.,M_PI/2.});
-
-    gz_model.setModelConfiguration( { "left_shoulder_abduction", "right_shoulder_abduction" } , { M_PI/2., -M_PI/2. } );
+    gz_model.setModelConfiguration( { "left_shoulder_X", "right_shoulder_X" } , { M_PI/2., -M_PI/2. } );
+    // gz_model.setModelConfiguration( { "left_shoulder_abduction", "right_shoulder_abduction" } , { M_PI/2., -M_PI/2. } );
 
     orca::utils::Logger::parseArgv(argc, argv);
 
     auto robot_model = std::make_shared<RobotModel>();
     robot_model->loadModelFromFile(urdf_url);
+    // robot_model->setBaseFrame("pelvis");
     robot_model->setBaseFrame("root");
     robot_model->setGravity(Eigen::Vector3d(0,0,-9.81));
 
     const int ndof = robot_model->getNrOfDegreesOfFreedom();
 
     gz_model.setBrakes(false);
+
+    gz_model.setJointMapping(robot_model->getJointNames());
 
     gz_model.executeAfterWorldUpdate([&](uint32_t n_iter,double current_time,double dt)
     {
@@ -86,20 +88,15 @@ int main(int argc, char const *argv[])
 
         // Compensate the gravity at least
         Eigen::VectorXd trq = Eigen::VectorXd::Zero(ndof);
+        // std::cout <<  "JOINTS NAMES" << std::endl;
         // for (int i=0; i<ndof; i++)
-        // {
-        //   std::cout << robot_model->getJointName(i) << " " << i << std::endl;
         //   // if (robot_model->getJointName(i) == "right_knee_flexion")
         //   //   trq[i] = 100.;
-        //
-        //   }
-        //   trq[1] = -100.;
 
-        gz_model.setJointTorqueCommand(trq);
+        gz_model.setJointTorqueCommand(robot_model->getJointGravityTorques());
         // gz_model.setJointGravityTorques(robot_model->getJointGravityTorques());
         // gz_model.setJointTorqueCommand(Eigen::VectorXd::Zero(ndof));
         // gz_model.setJointTorqueCommand( controller.getJointTorqueCommand() );
-
 
     });
 

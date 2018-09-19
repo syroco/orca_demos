@@ -20,13 +20,14 @@
       <origin xyz="0 0 1.2"/>
   </joint>
 
-  <link name="root">
-    <inertial>
-      <mass value="0.1"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="3.6e-05" ixy="0" ixz="0" iyy="3.6e-05" iyz="0" izz="3.6e-05"/>
-    </inertial>
-  </link>
+<!-- Joint for correct pelvis orientation -->
+  <link name="root"/>
+  <joint name="root_ISB_orientation" type="fixed">
+    <parent link="root"/>
+    <child link="pelvis"/>
+    <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+  </joint>
+
   <link name="pelvis">
     <visual>
       <geometry>
@@ -573,12 +574,7 @@
     </inertial>
   </link>
   <!-- Define joints -->
-  <!-- Joint for correct pelvis orientation -->
-  <joint name="root_ISB_orientation" type="fixed">
-    <parent link="root"/>
-    <child link="pelvis"/>
-    <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
-  </joint>
+
   <!-- Back joints -->
   <joint name="lumbarspine_abduction" type="revolute">
     <parent link="pelvis"/>
@@ -929,9 +925,6 @@
     <dynamics damping="0.01" friction="0.0"/>
   </joint>
   <!-- Note: if adding a Namespace here (other than "/"), the controller_manager should be in the same Namespace, as well as the spawner -->
-  <gazebo reference="root">
-    <turnGravityOff> 0 </turnGravityOff>
-  </gazebo>
   <gazebo reference="pelvis">
     <turnGravityOff> 0 </turnGravityOff>
     <material>Gazebo/Blue</material>

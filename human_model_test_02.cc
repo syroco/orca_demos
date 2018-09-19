@@ -57,9 +57,9 @@ int main(int argc, char const *argv[])
     std::string urdf_url(argv[1]);
 
     GazeboServer gz_server(argc,argv);
-    // auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url));
-    auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url,Eigen::Vector3d(0,0,1.0)));
-    gz_model.setModelConfiguration( { "right_shoulder_abduction", "left_shoulder_abduction"} , {-M_PI/2.,M_PI/2.});
+    auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url));
+    // auto gz_model = GazeboModel(gz_server.insertModelFromURDFFile(urdf_url,Eigen::Vector3d(0,0,1.0)));
+    // gz_model.setModelConfiguration( { "right_shoulder_abduction", "left_shoulder_abduction"} , {-M_PI/2.,M_PI/2.});
 
     orca::utils::Logger::parseArgv(argc, argv);
 
@@ -67,7 +67,7 @@ int main(int argc, char const *argv[])
     robot_model->loadModelFromFile(urdf_url);
     robot_model->setBaseFrame("root");
     robot_model->setGravity(Eigen::Vector3d(0,0,-9.81));
-
+    gz_model.setJointMapping(robot_model->getJointNames());
 
     orca::optim::Controller controller(
         "controller"
@@ -79,28 +79,52 @@ int main(int argc, char const *argv[])
 
     const int ndof = robot_model->getNrOfDegreesOfFreedom();
 
+    // Eigen::VectorXd joint_pos_ref = Eigen::VectorXd::Zero(ndof);
+    // joint_pos_ref[robot_model->getJointIndex("right_shoulder_X")] = -M_PI/2;
+    // joint_pos_ref[robot_model->getJointIndex("left_shoulder_X")] = M_PI/2;
+
     // Joint postural task
-    auto joint_pos_task = controller.addTask<JointAccelerationTask>("JointPosTask");
-    joint_pos_task->pid()->setProportionalGain(Eigen::VectorXd::Constant(ndof,100));
-    joint_pos_task->pid()->setDerivativeGain(Eigen::VectorXd::Constant(ndof,1));
-    joint_pos_task->pid()->setWindupLimit(Eigen::VectorXd::Constant(ndof,10));
-    joint_pos_task->pid()->setDerivativeGain(Eigen::VectorXd::Constant(ndof,10));
-    joint_pos_task->setWeight(1.);
+    // auto joint_pos_task = controller.addTask<JointAccelerationTask>("JointPosTask");
+    // joint_pos_task->pid()->setProportionalGain(Eigen::VectorXd::Constant(ndof,100));
+    // joint_pos_task->pid()->setDerivativeGain(Eigen::VectorXd::Constant(ndof,1));
+    // joint_pos_task->pid()->setWindupLimit(Eigen::VectorXd::Constant(ndof,10));
+    // joint_pos_task->pid()->setDerivativeGain(Eigen::VectorXd::Constant(ndof,10));
+    // joint_pos_task->setWeight(1.);
+    // joint_pos_task->setDesired( joint_pos_ref,  Eigen::VectorXd::Zero(ndof),  Eigen::VectorXd::Zero(ndof));
 
-    auto jnt_trq_cstr = controller.addConstraint<JointTorqueLimitConstraint>("JointTorqueLimit");
-    Eigen::VectorXd jntTrqMax(ndof);
-    jntTrqMax.setConstant(200.0);
-    jnt_trq_cstr->setLimits(-jntTrqMax,jntTrqMax);
+    auto cart_acc_pid = std::make_shared<CartesianAccelerationPID>("servo_controller");
+    cart_acc_pid->pid()->setProportionalGain({1000, 1000, 1000, 0, 0, 0});
+    cart_acc_pid->pid()->setDerivativeGain({100, 100, 100, 0, 0, 0});
+    cart_acc_pid->setControlFrame("head");
 
-    auto jnt_pos_cstr = controller.addConstraint<JointPositionLimitConstraint>("JointPositionLimit");
+    Eigen::Affine3d cart_pos_ref;
+    cart_pos_ref.translation() = Eigen::Vector3d(0.,0.,2.2); // x,y,z in meters
+    cart_pos_ref.linear() = Eigen::Quaterniond::Identity().toRotationMatrix();
 
-    auto jnt_vel_cstr = controller.addConstraint<JointVelocityLimitConstraint>("JointVelocityLimit");
-    jnt_vel_cstr->setLimits(Eigen::VectorXd::Constant(ndof,-2.0),Eigen::VectorXd::Constant(ndof,2.0));
+    Vector6d cart_vel_ref = Vector6d::Zero();
+    Vector6d cart_acc_ref = Vector6d::Zero();
+
+    // The desired values are set on the servo controller. Because cart_task->setDesired expects a cartesian acceleration. Which is computed automatically by the servo controller
+    cart_acc_pid->setDesired(cart_pos_ref.matrix(),cart_vel_ref,cart_acc_ref);
+
+    auto cart_task = controller.addTask<CartesianTask>("CartTask_EE");
+    cart_task->setServoController(cart_acc_pid);
+
+
+    // auto jnt_trq_cstr = controller.addConstraint<JointTorqueLimitConstraint>("JointTorqueLimit");
+    // Eigen::VectorXd jntTrqMax(ndof);
+    // jntTrqMax.setConstant(200.0);
+    // jnt_trq_cstr->setLimits(-jntTrqMax,jntTrqMax);
+
+    // auto jnt_pos_cstr = controller.addConstraint<JointPositionLimitConstraint>("JointPositionLimit");
+
+    // auto jnt_vel_cstr = controller.addConstraint<JointVelocityLimitConstraint>("JointVelocityLimit");
+    // jnt_vel_cstr->setLimits(Eigen::VectorXd::Constant(ndof,-2.0),Eigen::VectorXd::Constant(ndof,2.0));
 
 
     // Lets decide that the robot is gravity compensated
     // So we need to remove G(q) from the solution
-    controller.removeGravityTorquesFromSolution(true);
+    controller.removeGravityTorquesFromSolution(false);
     gz_model.executeAfterWorldUpdate([&](uint32_t n_iter,double current_time,double dt)
     {
         robot_model->setRobotState(gz_model.getWorldToBaseTransform().matrix()
@@ -110,7 +134,7 @@ int main(int argc, char const *argv[])
                             ,gz_model.getGravity()
                         );
         // Compensate the gravity at least
-        gz_model.setJointGravityTorques(robot_model->getJointGravityTorques());
+        // gz_model.setJointGravityTorques(robot_model->getJointGravityTorques());
         // All tasks need the robot to be initialized during the activation phase
         if(n_iter == 1)
             controller.activateTasksAndConstraints();
@@ -120,6 +144,9 @@ int main(int argc, char const *argv[])
         if(controller.solutionFound())
         {
             gz_model.setJointTorqueCommand( controller.getJointTorqueCommand() );
+            std::cout << "TORQUE CMD" << std::endl;
+            for (int i=0; i<ndof; i++)
+              std::cout << robot_model->getJointName(i) << " " << controller.getJointTorqueCommand()[i] << std::endl;
         }
         else
         {
